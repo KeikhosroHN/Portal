@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - هلال احمر استان تهران</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @*------Date-Picker------*@
+    <script src="~/Scripts/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+
+</head>
+<body style="">
+    <div style="height:120px;">
+        <div class="pull-right">
+            <img src="~/Content/img/fa-Logo.png" alt="Icon" style="margin-right:40px;" />
+        </div>
+
+        <div class="pull-right" style="color:dimgray;margin-right:25px;">
+            <h3 style="text-align:right;">@ViewBag.Title</h3>
+            <h5 style="text-align:right;">@ViewBag.Text</h5>
+        </div>
+    </div>
+
+    <div class="navbar header">
+            @Html.Partial("_LoginPartial")
+            @Html.Partial("_Header")
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <footer class="footer haq">
+        @Html.Partial("_Footer")
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

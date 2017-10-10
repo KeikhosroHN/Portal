@@ -1,0 +1,171 @@
+﻿@model MyPro.Models.Per
+
+@{
+    ViewBag.Title = "اضافه کردن دوره";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>دوره جدید</h2>
+
+
+@using (Html.BeginForm("AddPer", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>دوره</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if ((string)Session["Access"] == "MainAdmin")
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.RegionName, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RegionName, new { htmlAttributes = new { @class = "form-control", @placeholder = "عدد به رقم" } })
+                    @Html.ValidationMessageFor(model => model.RegionName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        @if ((string)Session["Access"] != "MainAdmin")
+        {
+            <div class="form-group" hidden>
+                <input type="number" class = "form-control" name="acc" value=@Session["Access"] />
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OD, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OD, new { htmlAttributes = new { @class = "form-control", placeholder = "عنوان دوره" } })
+                @Html.ValidationMessageFor(model => model.OD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NMD, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NMD, new { htmlAttributes = new { @class = "form-control", placeholder = "نام مربی دوره" } })
+                @Html.ValidationMessageFor(model => model.NMD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MBD, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MBD, new { htmlAttributes = new { @class = "form-control", placeholder = "مکان برگذاری دوره" } })
+                @Html.ValidationMessageFor(model => model.MBD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*-----تاریخ-ها-----*@
+        <hr />
+        @*--تاریخ-شروع--*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.TSHD, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-9 col-md-offset-7" dir="ltr">
+                <div class="input-group">
+                    <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate2" data-groupid="group2" data-fromdate="true" data-enabletimepicker="false" data-placement="left" style="cursor: pointer;" data-mdpersiandatetimepicker="" data-mdformat="yyyy/MM/dd" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:20,&quot;Hour&quot;:14,&quot;Minute&quot;:35,&quot;Second&quot;:22}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input name="TSHD" class="form-control" id="fromDate2" placeholder="از تاریخ" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#fromDate2" data-groupid="group2" data-fromdate="true" data-enabletimepicker="false" data-placement="right" data-mdpersiandatetimepicker="" data-mdformat="yyyy/MM/dd" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:20,&quot;Hour&quot;:14,&quot;Minute&quot;:36,&quot;Second&quot;:27}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false" type="text">
+                </div>
+                @Html.ValidationMessageFor(model => model.TSHD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*--تاریخ-پایان--*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.TPD, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-9 col-md-offset-7" dir="ltr">
+                <div class="input-group">
+                    <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate2" data-groupid="group2" data-todate="true" data-enabletimepicker="false" data-placement="left" style="cursor: pointer;" data-mdpersiandatetimepicker="" data-mdformat="yyyy/MM/dd" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:20,&quot;Hour&quot;:14,&quot;Minute&quot;:35,&quot;Second&quot;:21}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input name="TPD" class="form-control" id="toDate2" placeholder="تا تاریخ" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#toDate2" data-groupid="group2" data-todate="true" data-enabletimepicker="true" data-placement="right" data-mdpersiandatetimepicker="" data-mdformat="yyyy/MM/dd HH:mm:ss" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:20,&quot;Hour&quot;:11,&quot;Minute&quot;:42,&quot;Second&quot;:46}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false" type="text">
+                </div>
+                @Html.ValidationMessageFor(model => model.TPD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*--روز-و-ساعت-برگذاری--*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.RVSBD, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-9 col-md-offset-7" dir="ltr">
+                <div class="input-group">
+                    <div class="input-group-addon" data-mddatetimepicker="true" data-targetselector="#exampleInput1" data-trigger="click" data-enabletimepicker="true" style="cursor: pointer;" data-mdpersiandatetimepicker="" data-mdformat="yyyy/MM/dd HH:mm:ss" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:4,&quot;Hour&quot;:11,&quot;Minute&quot;:33,&quot;Second&quot;:22}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input name="RVSBD" class="form-control" id="exampleInput1" placeholder="تاریخ به همراه زمان" type="text">
+                </div>
+                @Html.ValidationMessageFor(model => model.RVSBD, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*--تاریخ-آزمون--*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.TA, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-9 col-md-offset-7" dir="ltr">
+                <div class="input-group">
+                    <div class="input-group-addon" data-mddatetimepicker="true" data-trigger="click" data-targetselector="#exampleInput3" style="cursor: pointer;" data-mdpersiandatetimepicker="" data-enabletimepicker="false" data-mdformat="yyyy/MM/dd" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:31,&quot;Hour&quot;:0,&quot;Minute&quot;:0,&quot;Second&quot;:0}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input name="TA" class="form-control" id="exampleInput3" placeholder="تاریخ" data-targetselector="#exampleInput3" data-mddatetimepicker="true" data-placement="right" data-englishnumber="true" data-mdpersiandatetimepicker="" data-trigger="click" data-enabletimepicker="false" data-mdformat="yyyy/MM/dd" data-mdpersiandatetimepickerselecteddatetime="{&quot;Year&quot;:1396,&quot;Month&quot;:6,&quot;Day&quot;:31,&quot;Hour&quot;:0,&quot;Minute&quot;:0,&quot;Second&quot;:0}" data-original-title="" title="" data-mdpersiandatetimepickershowing="false" type="text">
+                </div>
+                @Html.ValidationMessageFor(model => model.TA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TF, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TF, new { htmlAttributes = new { @class = "form-control", placeholder = "عدد  به رقم" } })
+                @Html.ValidationMessageFor(model => model.TF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DG, htmlAttributes: new { @class = "control-label col-md-2", style = "float:right" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DG, new { htmlAttributes = new { @class = "form-control", placeholder = "به ريال" } })
+                @Html.ValidationMessageFor(model => model.DG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="ساختن" class="btn btn-default btn-outline" />
+                <a class="btn btn-danger btn-outline" href="@Url.Action("Regions","Admin")">بازگشت به لیست</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*-----Date-Picker-----*@
+    <script src="~/Scripts/MdBootstrapPersianDateTimePicker/jalaali.js" type="text/javascript"></script>
+    <script src="~/Scripts/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('#input1').change(function () {
+            var $this = $(this),
+                value = $this.val();
+            alert(value);
+        });
+        $('#textbox1').change(function () {
+            var $this = $(this),
+                value = $this.val();
+            alert(value);
+        });
+        $('[data-name="disable-button"]').click(function () {
+            $('[data-mddatetimepicker="true"][data-targetselector="#input1"]').MdPersianDateTimePicker('disable', true);
+        });
+        $('[data-name="enable-button"]').click(function () {
+            $('[data-mddatetimepicker="true"][data-targetselector="#input1"]').MdPersianDateTimePicker('disable', false);
+        });
+    </script>
+}

@@ -1,0 +1,19 @@
+﻿<div class="navbar-header" style="float:right;">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    @Html.ActionLink("هلال احمر استان تهران", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+</div>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav" style="float:right;">
+        @if ((string)Session["Access"] == "MainAdmin")
+        {
+            <li>@Html.ActionLink("ارتباط", "Contact", "Home")</li>
+        }
+        <li>@Html.ActionLink("درباره", "About", "Home")</li>
+        <li>@Html.ActionLink("صفحه اصلی", "Index", "Home")</li>
+    </ul>
+
+</div>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<MyPro.Models.Admin>
+
+@{
+    ViewBag.Title = "لیست مدیرها";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>لیست مدیرها</h2>
+
+<p>
+    @if ((string)Session["Access"] == "MainAdmin")
+    {
+        <a class="btn btn-danger btn-outline" href="@Url.Action("AddAdmin", "Admin")">اضافه کردن مدیر</a>
+    }
+</p>
+<table class="col table-condensed" style="margin:20px 0;">
+    <tr>
+        @using (Html.BeginForm("AdminsList", "Admin", FormMethod.Get))
+            {
+            <td>
+                <input type="text" placeholder="ویژگی مورد نظر را بنویسید" name="search" value="" class="form-control" />
+            </td>
+            <td>
+                <select name="Combo" size="1" class="ComboboxS">
+                    <option selected value="Username">نام کاربری</option>
+                    <option value="Password">رمزعبور</option>
+                    <option value="Email">ایمیل</option>
+                    <option value="Number">شماره</option>
+                    <option value="Access">مدیر منطقه</option>
+                </select>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-search"></i> جستجو</button>
+            </td>
+        }
+    </tr>
+</table>
+
+<table class="col table-condensed tblinf">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Access)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (item.Access == "MainAdmin")
+                {
+                <td style="text-align:center;color:red;">
+                    مدیر
+                </td>
+            }
+            else
+            {
+                <td style="text-align:center;">
+                    @Html.DisplayFor(modelItem => item.Access)
+                </td>
+            }
+            <td style="text-align:right">
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td style="text-align:right">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                <a class="btn btn-warning btn-outline" href="@Url.Action("EditAdmin","Admin", new { username=item.Username })"><i class="glyphicon glyphicon-edit"></i> ویرایش</a>
+            </td>
+            <td>
+                <a class="btn btn-danger btn-outline" href="@Url.Action("DeleteAdmin","Admin", new { username=item.Username })"><i class="glyphicon glyphicon-remove"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>

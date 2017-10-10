@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNet.Identity
+
+<ul class="nav navbar-nav header" style="float:left;">
+    @if (Session["Username"] == null)
+    {
+        <li>
+            <a href="@Url.Action("Login", "Admin")">ورود</a>
+        </li>
+    }
+
+    @if (Session["Username"] != null)
+    {
+        <li>
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                @Session["Username"].ToString()
+                <i class="caret"></i>
+            </a>
+            <ul class="dropdown-menu btn-xs">
+                <li class="text-right">@Html.ActionLink(" خروج", "Logout", "Admin", null, new { @class = "glyphicon glyphicon-log-out" })</li>
+            </ul>
+        </li>
+    }
+</ul>

@@ -1,0 +1,41 @@
+﻿<div class="nav-h" style="width:100%;">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <ul class="list-unstyled">
+                    @if ((string)Session["Username"] == null)
+                    {
+                        <li><a href="@Url.Action("Login", "Account")">ورود</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("Index", "Home")">@Session["Username"]</a></li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <ul class="list-unstyled">
+                    @if ((string)Session["Access"] == "MainAdmin")
+                    {
+                        <li><a href="@Url.Action("AdminsList","Home")">لیست مدیرهای مناطق</a></li>
+                    }
+                    <li><a href="@Url.Action("Regions","Admin")">لیست دوره های مناطق</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <ul class="list-unstyled">
+                    <li><a href="@Url.Action("Index","Home")">صفحه ی اصلی</a></li>
+                    <li><a href="@Url.Action("About","Home")">درباره</a></li>
+                    <li><a href="@Url.Action("Contact", "Home")">ارتباط</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 haq">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <p class="">پورتال هلال احمر استان تهران -  @DateTime.Now.Year &copy;</p>
+        </div>
+    </div>
+</div>

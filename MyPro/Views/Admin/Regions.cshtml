@@ -1,0 +1,138 @@
+﻿@model List<MyPro.ViewModels.PerModel>
+
+@{
+    ViewBag.Title = "لیست دوره ها";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="badge">امروز @ViewBag.DateNow</p>
+
+<p>
+    <a class="btn btn-danger btn-outline" href="@Url.Action("AddPer", "Admin")">دوره جدید</a>
+</p>
+
+<table class="tblinf table-condensed">
+    @using (Html.BeginForm("Regions", "Admin", FormMethod.Get))
+    {
+        <tr>
+            <td style="float:right;">
+                <input type="text" placeholder="ویژگی مورد نظر را بنویسید" name="search" value="" class="form-control" />
+            </td>
+            <td>
+                <select name="Combo" size="1" class="ComboboxS">
+                    <option selected value="RN">منطقه</option>
+                    <option selected value="OD">عنوان دوره</option>
+                    <option value="NM">نام مربی</option>
+                    <option value="MB">مکان برگذاری</option>
+                    <option value="TSH">تاریخ شروع</option>
+                    <option value="TP">تاریخ پایان</option>
+                    <option value="TF">تعداد فراگیر</option>
+                    <option value="DG">درآمد گواهینامه</option>
+                </select>
+            </td>
+            <td>
+                <div class="form-check checkbox-primary">
+                    <label class="">
+                        <input type="checkbox" value="1" name="Export">
+                        خروجی اکسل
+                    </label>
+                </div>
+
+                @*<a class="btn btn-primary btn-outline" href="@Url.Action("ExportEx","Admin")"><i class="glyphicon glyphicon-download"></i> خروجی اکسل</a>*@
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary btn-outline"><i class="glyphicon glyphicon-search"></i> جستجو</button>
+            </td>
+        </tr>
+            <tr><td></td></tr>
+    }
+</table>
+
+<table class="tblinf table-condensed">
+
+    <tr>
+        <th>
+            <p>منطقه</p>
+        </th>
+        <th>
+            <p>عنوان دوره</p>
+        </th>
+        <th>
+            <p>نام مربی دوره</p>
+        </th>
+        <th>
+            <p>مکان برگذاری دوره</p>
+        </th>
+        <th>
+            <p>تاریخ شروع دوره</p>
+        </th>
+        <th>
+            <p>تاریخ پایان دوره</p>
+        </th>
+        <th>
+            <p>روز و ساعت برگذاری</p>
+        </th>
+        <th>
+            <p>تاریخ آزمون</p>
+        </th>
+        <th>
+            <p>تعداد فراگیر</p>
+        </th>
+        <th>
+            <p>درآمد گواهینامه</p>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NMD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MBD)
+            </td>
+            <td style="text-align:left;">
+                @item.TSHD
+            </td>
+            <td style="text-align:left;">
+                @item.TPD
+            </td>
+            <td style="text-align:left;">
+                @item.RVSBD
+            </td>
+            <td style="text-align:left;">
+                @item.TA
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DG) ريال
+            </td>
+            <td>
+                @using (Html.BeginForm("EditPer", "Admin", FormMethod.Get))
+                {
+                    @Html.AntiForgeryToken();
+                    <input type="hidden" name="ID" value=@item.ID />
+                        <button class="btn btn-warning btn-outline" type="submit"><i class="glyphicon glyphicon-edit"></i> ویرایش</button>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("DeletePer", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken();
+                    <input type="hidden" name="ID" value=@item.ID />
+                        <button class="btn btn-danger btn-outline" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+                }
+            </td>
+        </tr>
+    }
+</table>

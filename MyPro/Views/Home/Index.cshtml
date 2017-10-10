@@ -1,0 +1,86 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["Username"] != null)
+{
+    if ((string)Session["Login"] == "True")
+    {
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 style="text-align:right;">ورود موفقیت آمیز</h4>
+            <p style="text-align:right;">سلام @Session["FName"].ToString() خوش آمدید </p>
+        </div>
+        Session["Login"] = "Null";
+    }
+}
+<p class="badge">@ViewBag.Date</p>
+<div class="row">
+    @if (Session["Username"] == null)
+    {
+        <div class="jumbotron">
+            <h2>معاونت آموزش و پژوهش</h2>
+            <p class="lead">برای ادامه وارد حساب خود شوید.</p>
+            <a href="@Url.Action("Login", "Admin")" class="btn btn-danger btn-outline btn-lg"><i class="glyphicon glyphicon-user"></i> ورود</a>
+        </div>
+    }
+
+    @if ((string)Session["Username"] == null)
+    {
+        <div class="col-md-11 col-lg-11 col-sm-12 margin-top">
+            <label class="h3">دسترسی ها</label>
+            <hr />
+            <a href="@Url.Action("Login", "Admin")">
+                <div class="col-md-4 col-sm-12 col-lg-3" style="float:right;">
+                    <div class="btn-success btn-outline" style="height:240px;">
+                        <div style="text-align:center">
+                            <img style="" class="an" src="@Url.Content("~/Content/DTimg/customer-service.png")" />
+                            <h4>ورود مدیر</h4>
+                            <p>
+                                این قسمت مربوط به ورود مدیران مناطق به بخش مدیریت می باشد
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    @if ((string)Session["Access"] != null)
+    {
+        <div class="col-md-11 col-lg-11 col-sm-12 margin-top" style="z-index:5;">
+            <label class="h3">دسترسی</label>
+            <hr />
+
+            <ul class="nav">
+                <li style="float:right;text-align:right; margin-left:5px;">
+                    <div>
+                        <a href="@Url.Action("Regions", "Admin")">
+                            <div class="btn btn-default btn-outline">
+                                <img style="max-width:50px;" class="an" src="@Url.Content("~/Content/DTimg/bars-chart-1.png")" />
+                                <span>لیست دوره ها</span>
+                                <span class="badge">@ViewBag.RegionsList</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+
+                @if ((string)Session["Access"] == "MainAdmin")
+                {
+                    <li style="float:right;text-align:right; margin-left:5px;">
+                        <div>
+                            <a href="@Url.Action("AdminsList", "Admin")">
+                                <div class="btn btn-default btn-outline">
+                                    <img style="max-width:50px;" class="an" src="@Url.Content("~/Content/DTimg/boss-2.png")" />
+                                    <span>لیست مدیران</span>
+                                    <span class="badge">@ViewBag.AdminsList</span>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div style="margin-bottom:450px;"></div>
+    }
+</div>
